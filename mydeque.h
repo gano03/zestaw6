@@ -13,6 +13,7 @@ public:
     ~MyDeque() { delete [] tab; }
     MyDeque(const MyDeque& other)
     {
+        tab = new T[other.msize];
         msize = other.msize;
         head = other.head;
         tail = other.tail;
@@ -22,31 +23,36 @@ public:
     } // copy constructor
     MyDeque(MyDeque&& other)
     {
-        *this = std::move(other);
+       tab = new T[other.msize];
         other.msize = 0;
         other.head = 0;
         other.tail = 0;
         for(int i = 0; i < other.msize; i++){
+            tab[i] = other.tab[i];
             other.tab[i] = 0;
         }
+        delete [] other.tab;
     } // move constructor
     MyDeque& operator=(const MyDeque& other)
     {
+        tab = new T[other.msize];
         msize = other.msize;
         head = other.head;
         tail = other.tail;
         for(int i = 0; i < other.msize; i++){
             tab[i] = other.tab[i];
         }
+        delete [] other.tab;
         return *this;
     } // copy assignment operator, return *this
     MyDeque& operator=(MyDeque&& other)
     {
-        *this = std::move(other);
+        tab = new T[other.msize];
         other.msize = 0;
         other.head = 0;
         other.tail = 0;
         for(int i = 0; i < other.msize; i++){
+            tab[i] = other.tab[i];
             other.tab[i] = 0;
         }
         return *this;
