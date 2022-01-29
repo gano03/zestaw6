@@ -23,7 +23,10 @@ public:
     } // copy constructor
     MyDeque(MyDeque&& other)
     {
-       tab = new T[other.msize];
+        tab = new T[other.msize];
+        msize = other.msize;
+        head = other.head;
+        tail = other.tail;
         other.msize = 0;
         other.head = 0;
         other.tail = 0;
@@ -48,6 +51,9 @@ public:
     MyDeque& operator=(MyDeque&& other)
     {
         tab = new T[other.msize];
+        msize = other.msize;
+        head = other.head;
+        tail = other.tail;
         other.msize = 0;
         other.head = 0;
         other.tail = 0;
@@ -55,6 +61,7 @@ public:
             tab[i] = other.tab[i];
             other.tab[i] = 0;
         }
+        delete [] other.tab;
         return *this;
     } // move assignment operator, return *this
     bool empty() const { return head == tail; }
