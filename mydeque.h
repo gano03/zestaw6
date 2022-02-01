@@ -34,7 +34,7 @@ public:
     } // move constructor
     MyDeque& operator=(const MyDeque& other)
     {
-        this->tab = nullptr;
+        delete [] this->tab;
         this->head = 0;
         this->tail = 0;
         this->tab = new T[other.msize];
@@ -48,7 +48,7 @@ public:
     } // copy assignment operator, return *this
     MyDeque& operator=(MyDeque&& other)
     {
-        this->tab = nullptr;
+        delete [] this->tab;
         this->head = 0;
         this->tail = 0;
         this->msize =0;
