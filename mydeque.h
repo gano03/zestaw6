@@ -13,55 +13,53 @@ public:
     ~MyDeque() { delete [] tab; }
     MyDeque(const MyDeque& other)
     {
-        tab = new T[other.msize];
-        msize = other.msize;
-        head = other.head;
-        tail = other.tail;
+        this->tab = new T[other.msize];
+        this->msize = other.msize;
+        this->head = other.head;
+        this->tail = other.tail;
         for(int i = 0; i < other.msize; i++){
             tab[i] = other.tab[i];
         }
     } // copy constructor
     MyDeque(MyDeque&& other)
     {
-        tab = new T[other.msize];
-        msize = other.msize;
-        head = other.head;
-        tail = other.tail;
+        this->tab = other.tab;
+        this->msize = other.msize;
+        this->head = other.head;
+        this->tail = other.tail;
         other.msize = 0;
         other.head = 0;
         other.tail = 0;
-        for(int i = 0; i < other.msize; i++){
-            tab[i] = other.tab[i];
-            other.tab[i] = 0;
-        }
-        delete [] other.tab;
+        other.tab = nullptr;
     } // move constructor
     MyDeque& operator=(const MyDeque& other)
     {
-        tab = new T[other.msize];
-        msize = other.msize;
-        head = other.head;
-        tail = other.tail;
+        this->tab = nullptr;
+        this->head = 0;
+        this->tail = 0;
+        this->tab = new T[other.msize];
+        this->msize = other.msize;
+        this->head = other.head;
+        this->tail = other.tail;
         for(int i = 0; i < other.msize; i++){
             tab[i] = other.tab[i];
         }
-        delete [] other.tab;
         return *this;
     } // copy assignment operator, return *this
     MyDeque& operator=(MyDeque&& other)
     {
-        tab = new T[other.msize];
-        msize = other.msize;
-        head = other.head;
-        tail = other.tail;
+        this->tab = nullptr;
+        this->head = 0;
+        this->tail = 0;
+        this->msize =0;
+        this->tab = other.tab;
+        this->msize = other.msize;
+        this->head = other.head;
+        this->tail = other.tail;
         other.msize = 0;
         other.head = 0;
         other.tail = 0;
-        for(int i = 0; i < other.msize; i++){
-            tab[i] = other.tab[i];
-            other.tab[i] = 0;
-        }
-        delete [] other.tab;
+        other.tab = nullptr;
         return *this;
     } // move assignment operator, return *this
     bool empty() const { return head == tail; }
